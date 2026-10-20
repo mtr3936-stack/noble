@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" name="viewport"><title>글쓰기 | 혁신노블부동산</title><script src="db.js"></script><script>requireAdmin();</script><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-secondary": "#ffffff", "background": "#f7f9ff", "secondary": "#0059b9", "tertiary": "#0056b2", "surface-canvas": "#ffffff", "border-hairline": "#e5e8eb", "on-surface": "#181c20", "on-secondary-container": "#fefcff", "primary-fixed": "#dbe1ff", "on-primary": "#ffffff", "inverse-primary": "#b3c5ff", "on-primary-container": "#f5f5ff", "tertiary-fixed": "#d7e2ff", "tertiary-fixed-dim": "#acc7ff", "inverse-surface": "#2d3135", "surface-container-low": "#f1f4f9", "secondary-fixed-dim": "#acc7ff", "tag-metadata": "#b0b8c1", "on-background": "#181c20", "surface-container-lowest": "#ffffff", "tertiary-container": "#316fcd", "surface-variant": "#e0e3e8", "error-container": "#ffdad6", "on-tertiary-fixed": "#001a40", "surface": "#f7f9ff", "interactive-focus-ring": "#3182f6", "on-surface-variant": "#424656", "border-structural": "#d1d6db", "foreground-secondary": "#4e5968", "error": "#ba1a1a", "outline-variant": "#c2c6d8", "surface-container": "#ebeef3", "muted": "#6b7684", "on-primary-fixed-variant": "#003ea6", "on-primary-fixed": "#00174a", "foreground-strong": "#191f28", "on-error-container": "#93000a", "on-error": "#ffffff", "inverse-on-surface": "#eef1f6", "primary-fixed-dim": "#b3c5ff", "on-secondary-fixed-variant": "#004491", "on-tertiary-fixed-variant": "#004491", "surface-container-high": "#e5e8ee", "surface-muted": "#f2f4f6", "surface-container-highest": "#e0e3e8", "on-secondary-fixed": "#001a40", "surface-dim": "#d7dadf", "secondary-container": "#1071e5", "secondary-fixed": "#d7e2ff", "primary-container": "#0064ff", "surface-bright": "#f7f9ff", "on-tertiary-container": "#f5f6ff", "on-tertiary": "#ffffff", "surface-tint": "#0054d8", "primary": "#004ecb", "interactive-hover-tint": "rgba(217, 217, 255, 0.11)", "outline": "#737687" }, borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, spacing: { "gutter-mobile": "1rem", "gutter": "1.5rem", "space-lg": "1rem", "space-md": "0.75rem", "space-sm": "0.5rem", "margin-mobile": "1rem", "space-xs": "0.25rem", "space-xl": "2rem", "margin": "2rem", "xxl": "6rem" }, fontFamily: { "headline-lg-mobile": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "caption": ["Plus Jakarta Sans"], "title-md": ["Plus Jakarta Sans"], "display": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "display-mobile": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"] }, fontSize: { "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "700" }], "label-md": ["13px", { lineHeight: "18px", fontWeight: "500" }], "label-sm": ["12px", { lineHeight: "16px", fontWeight: "600" }], "caption": ["11px", { lineHeight: "16px", fontWeight: "600" }], "title-md": ["17px", { lineHeight: "24px", fontWeight: "700" }], "display": ["48px", { lineHeight: "62px", fontWeight: "700" }], "body-md": ["15px", { lineHeight: "24px", fontWeight: "400" }], "body-sm": ["14px", { lineHeight: "20px", fontWeight: "500" }], "display-mobile": ["32px", { lineHeight: "42px", fontWeight: "700" }], "headline-sm": ["20px", { lineHeight: "28px", fontWeight: "600" }], "headline-md": ["24px", { lineHeight: "34px", fontWeight: "700" }], "headline-lg": ["32px", { lineHeight: "42px", fontWeight: "700" }], "body-lg": ["16px", { lineHeight: "26px", fontWeight: "400" }] } } } };</script><style>@layer base { html, body { width: 100%; margin: 0; padding: 0; } body { -webkit-tap-highlight-color: transparent; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } } img { max-width: 100%; object-fit: cover; } ::-webkit-scrollbar { display: none; }
+.field { width: 100%; min-height: 48px; padding: 0 1rem; border-radius: 1rem; border: 1px solid #e5e8eb; background: #ffffff; color: #191f28; font-size: 16px; }
+.field:focus { outline: none; border-color: #3182f6; box-shadow: 0 0 0 3px rgba(49,130,246,0.18); }
+textarea.field { padding: 0.9rem 1rem; line-height: 1.7; resize: vertical; }
+.md-body { font-size: 16px; line-height: 1.8; color: #191f28; word-break: keep-all; overflow-wrap: anywhere; }
+.md-body > * + * { margin-top: 1em; }
+.md-body h1, .md-body h2, .md-body h3, .md-body h4, .md-body h5, .md-body h6 { font-weight: 700; line-height: 1.4; margin-top: 1.6em; }
+.md-body > :first-child { margin-top: 0; }
+.md-body h1 { font-size: 24px; } .md-body h2 { font-size: 21px; } .md-body h3 { font-size: 18px; }
+.md-body ul, .md-body ol { padding-left: 1.4em; } .md-body ul { list-style: disc; } .md-body ol { list-style: decimal; }
+.md-body a { color: #004ecb; text-decoration: underline; } .md-body strong { font-weight: 700; } .md-body em { font-style: italic; } .md-body del { color: #6b7684; }
+.md-body code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.9em; background: #f1f4f9; border-radius: 6px; padding: 0.1em 0.4em; }
+.md-body pre { background: #2d3135; color: #eef1f6; border-radius: 16px; padding: 1em 1.2em; overflow-x: auto; font-size: 14px; }
+.md-body pre code { background: transparent; padding: 0; color: inherit; }
+.md-body blockquote { border-left: 4px solid #0064ff; background: #f1f4f9; border-radius: 0 16px 16px 0; padding: 0.8em 1.1em; color: #4e5968; }
+.md-body hr { border: 0; border-top: 1px solid #e5e8eb; margin: 1.8em 0; }
+</style></head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased overflow-x-hidden selection:bg-primary-fixed">
+<header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+<div class="h-14 md:h-16 max-w-6xl mx-auto px-margin-mobile md:px-margin flex items-center justify-between">
+<a class="flex items-center gap-space-sm min-h-[44px]" href="index.html">
+<div class="w-9 h-9 rounded-full bg-primary-container flex items-center justify-center text-on-primary font-bold shadow-sm"><span class="material-symbols-outlined text-[20px]">apartment</span></div>
+<div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm font-bold text-foreground-strong tracking-tight">혁신노블부동산</span><span class="px-1.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant text-[10px] font-bold">충무공동</span></div><span class="font-caption text-caption text-muted">진주혁신도시 전문중개</span></div>
+</a>
+<nav class="hidden md:flex items-center gap-space-xs font-label-md text-label-md">
+<a class="h-11 px-4 rounded-full flex items-center text-foreground-secondary hover:text-foreground-strong hover:bg-surface-container-low transition-colors" href="news.html">부동산소식</a>
+<a class="h-11 px-4 rounded-full flex items-center text-foreground-secondary hover:text-foreground-strong hover:bg-surface-container-low transition-colors" href="admin.html">게시글 관리</a>
+</nav>
+<a class="h-11 px-4 rounded-full bg-surface-container-low hover:bg-surface-container text-foreground-strong font-label-md text-label-md inline-flex items-center gap-1 transition-colors" href="admin.html"><span class="material-symbols-outlined text-[18px]">dashboard</span>관리</a>
+</div>
+</header>
+
+<main class="flex flex-col flex-1 w-full min-h-screen pt-14 md:pt-16 pb-xxl bg-surface px-margin-mobile md:px-margin">
+<div class="w-full max-w-3xl mx-auto flex flex-col pt-4 md:pt-8">
+<div class="flex items-center justify-between gap-space-sm mb-space-md">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-primary font-bold">관리자 전용</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:text-headline-lg text-foreground-strong tracking-tight" id="page-title">새 글 작성</h1>
+</div>
+<a class="inline-flex items-center gap-1 min-h-[44px] px-3 text-foreground-secondary hover:text-primary font-label-md text-label-md" href="admin.html"><span class="material-symbols-outlined text-[20px]">close</span>취소</a>
+</div>
+
+<p class="hidden mb-space-md px-space-md py-space-sm rounded-DEFAULT bg-primary-fixed text-on-primary-fixed-variant font-body-sm text-body-sm" id="mode-notice"></p>
+
+<form class="bg-surface-canvas rounded-[24px] p-space-lg md:p-space-xl shadow-sm flex flex-col gap-space-lg" id="post-form" novalidate>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-lg">
+<label class="flex flex-col gap-1.5">
+<span class="font-label-md text-label-md font-bold text-foreground-strong">카테고리</span>
+<select class="field" id="category"></select>
+</label>
+<label class="flex flex-col gap-1.5">
+<span class="font-label-md text-label-md font-bold text-foreground-strong">작성일</span>
+<input class="field" id="date" required type="date">
+</label>
+</div>
+<label class="flex flex-col gap-1.5">
+<span class="font-label-md text-label-md font-bold text-foreground-strong">제목</span>
+<input class="field" id="title" maxlength="120" placeholder="게시글 제목을 입력하세요" required type="text">
+</label>
+<label class="flex flex-col gap-1.5">
+<span class="font-label-md text-label-md font-bold text-foreground-strong">대표 이미지 주소 <span class="font-normal text-muted">(선택)</span></span>
+<input class="field" id="thumbnail" inputmode="url" placeholder="https://… 또는 images/photo.jpg" type="text">
+</label>
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between gap-space-sm">
+<span class="font-label-md text-label-md font-bold text-foreground-strong">본문 <span class="font-normal text-muted">(마크다운)</span></span>
+<div class="inline-flex p-1 rounded-full bg-surface-container-low" role="tablist">
+<button aria-selected="true" class="tab-btn h-11 min-w-[64px] px-3 rounded-full font-label-sm text-label-sm bg-surface-canvas text-foreground-strong shadow-sm" data-tab="edit" role="tab" type="button">작성</button>
+<button aria-selected="false" class="tab-btn h-11 min-w-[64px] px-3 rounded-full font-label-sm text-label-sm text-muted" data-tab="preview" role="tab" type="button">미리보기</button>
+</div>
+</div>
+<textarea class="field min-h-[320px]" id="content" placeholder="## 소제목&#10;&#10;본문을 마크다운으로 작성하세요. **굵게**, *기울임*, - 목록, > 인용, [링크](https://…)" required></textarea>
+<div class="hidden md-body min-h-[320px] rounded-DEFAULT border border-border-hairline p-space-lg bg-surface-canvas" id="preview"></div>
+<p class="font-label-sm text-label-sm text-muted">제목 <code>#</code>, 목록 <code>-</code>·<code>1.</code>, <code>**굵게**</code>, <code>*기울임*</code>, <code>~~취소선~~</code>, <code>`코드`</code>, <code>```코드블록```</code>, <code>&gt;</code> 인용, <code>[텍스트](url)</code>, <code>---</code> 구분선을 지원합니다.</p>
+</div>
+
+<p class="hidden px-space-md py-space-sm rounded-DEFAULT bg-error-container text-on-error-container font-body-sm text-body-sm" id="form-error"></p>
+
+<div class="flex flex-col-reverse sm:flex-row sm:justify-end gap-space-sm">
+<a class="h-12 px-space-xl rounded-full bg-surface-container-low hover:bg-surface-container text-foreground-strong font-label-md text-label-md inline-flex items-center justify-center transition-colors" href="admin.html">취소</a>
+<button class="h-12 px-space-xl rounded-full bg-primary-container hover:bg-interactive-focus-ring text-on-primary font-title-md text-title-md inline-flex items-center justify-center gap-1.5 shadow-sm transition-colors disabled:opacity-60" id="save-btn" type="submit"><span class="material-symbols-outlined text-[20px]">check</span><span id="save-label">저장하기</span></button>
+</div>
+</form>
+</div>
+</main>
+
+<nav class="md:hidden fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface-canvas/90 backdrop-blur-xl shadow-[0_-1px_12px_rgba(0,0,0,0.04)]" id="bottom-nav">
+<div class="flex justify-around items-center h-16 px-space-xs max-w-md mx-auto">
+<a class="flex flex-col items-center justify-center gap-0.5 w-16 h-12 text-on-surface-variant hover:text-on-surface transition-colors" href="index.html"><span class="material-symbols-outlined text-[24px]">real_estate_agent</span><span class="font-label-sm text-label-sm">추천매물</span></a>
+<a class="flex flex-col items-center justify-center gap-0.5 w-16 h-12 text-on-surface-variant hover:text-on-surface transition-colors" href="news.html"><span class="material-symbols-outlined text-[24px]">newspaper</span><span class="font-label-sm text-label-sm">부동산소식</span></a>
+<a aria-current="page" class="flex flex-col items-center justify-center gap-0.5 w-16 h-12 transition-colors text-primary font-bold" href="admin.html"><span class="material-symbols-outlined text-[24px]">dashboard</span><span class="font-label-sm text-label-sm">관리</span></a>
+</div>
+</nav>
+
+<script>
+(function () {
+  if (!isAdmin()) return;
+  const id = new URLSearchParams(location.search).get("id") || "";
+  const form = document.getElementById("post-form");
+  const fields = {
+    category: document.getElementById("category"),
+    date: document.getElementById("date"),
+    title: document.getElementById("title"),
+    thumbnail: document.getElementById("thumbnail"),
+    content: document.getElementById("content")
+  };
+  const preview = document.getElementById("preview");
+  const errorEl = document.getElementById("form-error");
+  const saveBtn = document.getElementById("save-btn");
+  const saveLabel = document.getElementById("save-label");
+  const bottomNav = document.getElementById("bottom-nav");
+  let original = null;
+
+  function setCategories(extra) {
+    const list = BOARD_CATEGORIES.slice();
+    if (extra && !list.includes(extra)) list.push(extra);
+    fields.category.innerHTML = list.map(c => '<option value="' + escapeHtml(c) + '">' + escapeHtml(c) + "</option>").join("");
+  }
+
+  function showError(msg) {
+    errorEl.textContent = msg;
+    errorEl.classList.toggle("hidden", !msg);
+  }
+
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const isPreview = btn.getAttribute("data-tab") === "preview";
+      document.querySelectorAll(".tab-btn").forEach(b => {
+        const active = b === btn;
+        b.setAttribute("aria-selected", active ? "true" : "false");
+        b.classList.toggle("bg-surface-canvas", active);
+        b.classList.toggle("text-foreground-strong", active);
+        b.classList.toggle("shadow-sm", active);
+        b.classList.toggle("text-muted", !active);
+      });
+      if (isPreview) {
+        preview.innerHTML = fields.content.value.trim() ? renderMarkdown(fields.content.value) : '<p class="text-muted">미리 볼 내용이 없습니다.</p>';
+      }
+      fields.content.classList.toggle("hidden", isPreview);
+      preview.classList.toggle("hidden", !isPreview);
+    });
+  });
+
+  document.addEventListener("focusin", e => {
+    if (e.target.matches("input, textarea, select")) bottomNav.classList.add("hidden");
+  });
+  document.addEventListener("focusout", () => {
+    setTimeout(() => {
+      if (!document.activeElement || !document.activeElement.matches("input, textarea, select")) bottomNav.classList.remove("hidden");
+    }, 50);
+  });
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    showError("");
+    const post = Object.assign({}, original || {}, {
+      id: id,
+      category: fields.category.value,
+      date: fields.date.value || todayString(),
+      title: fields.title.value.trim(),
+      thumbnail: fields.thumbnail.value.trim(),
+      content: fields.content.value
+    });
+    if (!post.title) return showError("제목을 입력해 주세요.");
+    if (!post.content.trim()) return showError("본문을 입력해 주세요.");
+    if (post.thumbnail && !safeImageUrl(post.thumbnail)) return showError("대표 이미지 주소는 https:// 로 시작하는 주소나 사이트 안의 파일 경로만 사용할 수 있습니다.");
+
+    saveBtn.disabled = true;
+    saveLabel.textContent = "저장 중…";
+    try {
+      const saved = await savePost(post);
+      location.href = "news-detail.html?id=" + encodeURIComponent(saved.id);
+    } catch (err) {
+      showError(err.message);
+      if (!isAdmin()) setTimeout(() => location.replace("admin.html"), 1500);
+      saveBtn.disabled = false;
+      saveLabel.textContent = id ? "수정 완료" : "저장하기";
+    }
+  });
+
+  loadConfig().then(cfg => {
+    const notice = document.getElementById("mode-notice");
+    if (!cfg.api) {
+      notice.textContent = "로컬 미리보기 모드입니다. 저장한 글은 이 브라우저에만 보관되며, Vercel 배포 후에는 GitHub 저장소에 저장됩니다.";
+      notice.classList.remove("hidden");
+    } else if (!cfg.github_ready) {
+      notice.textContent = "Vercel 환경 변수 GITHUB_TOKEN이 설정되지 않아 저장할 수 없습니다.";
+      notice.className = "mb-space-md px-space-md py-space-sm rounded-DEFAULT bg-error-container text-on-error-container font-body-sm text-body-sm";
+    }
+  });
+
+  setCategories();
+  fields.date.value = todayString();
+
+  if (id) {
+    document.getElementById("page-title").textContent = "글 수정";
+    saveLabel.textContent = "수정 완료";
+    document.title = "글 수정 | 혁신노블부동산";
+    saveBtn.disabled = true;
+    getPost(id).then(post => {
+      if (!post) {
+        showError("수정할 게시글을 찾을 수 없습니다.");
+        return;
+      }
+      original = post;
+      setCategories(post.category);
+      fields.category.value = post.category || BOARD_CATEGORIES[0];
+      fields.date.value = String(post.date || "").slice(0, 10) || todayString();
+      fields.title.value = post.title || "";
+      fields.thumbnail.value = post.thumbnail || "";
+      fields.content.value = post.content || "";
+      saveBtn.disabled = false;
+    }).catch(err => showError("게시글을 불러오지 못했습니다: " + err.message));
+  }
+})();
+</script>
+</body></html>
