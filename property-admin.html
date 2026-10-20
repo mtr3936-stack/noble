@@ -96,12 +96,12 @@ textarea.field { height: auto; padding: 0.7rem 0.85rem; line-height: 1.6; resize
 <div class="mt-space-sm font-label-sm text-label-sm text-muted">메인 화면에 실제로 보이는 매물 기준</div>
 </div>
 <div class="bg-surface-canvas p-space-lg rounded-DEFAULT shadow-sm flex flex-col justify-between">
-<div class="flex items-center justify-between text-foreground-secondary"><span class="font-label-md text-label-md">상담 연결 번호</span><span class="w-8 h-8 rounded-DEFAULT bg-surface-container flex items-center justify-center text-secondary"><span class="material-symbols-outlined text-[18px]">verified_user</span></span></div>
+<div class="flex items-center justify-between text-foreground-secondary"><span class="font-label-md text-label-md">오늘 전화 버튼 클릭</span><span class="w-8 h-8 rounded-DEFAULT bg-surface-container flex items-center justify-center text-secondary"><span class="material-symbols-outlined text-[18px]">phone_in_talk</span></span></div>
 <div class="mt-space-md flex flex-col gap-1">
-<a class="flex items-center justify-between min-h-[44px] px-space-sm rounded-DEFAULT hover:bg-surface-container-low" href="tel:010-4489-3936"><span class="font-label-sm text-label-sm text-muted">대표 직통</span><span class="font-title-md text-title-md text-foreground-strong">010-4489-3936</span></a>
-<a class="flex items-center justify-between min-h-[44px] px-space-sm rounded-DEFAULT hover:bg-surface-container-low" href="tel:055-762-2565"><span class="font-label-sm text-label-sm text-muted">사무실 유선</span><span class="font-title-md text-title-md text-foreground-strong">055-762-2565</span></a>
+<div class="flex items-center justify-between min-h-[44px] px-space-sm rounded-DEFAULT bg-surface-container-low"><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-muted">대표 직통</span><span class="font-label-sm text-label-sm text-foreground-secondary whitespace-nowrap">010-4489-3936</span></div><div class="flex flex-col items-end shrink-0 pl-2"><span class="font-title-md text-title-md text-foreground-strong whitespace-nowrap" id="callTodayMobile">–</span><span class="font-label-sm text-label-sm text-muted whitespace-nowrap" id="callDeltaMobile"></span></div></div>
+<div class="flex items-center justify-between min-h-[44px] px-space-sm rounded-DEFAULT bg-surface-container-low"><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-muted">사무실 유선</span><span class="font-label-sm text-label-sm text-foreground-secondary whitespace-nowrap">055-762-2565</span></div><div class="flex flex-col items-end shrink-0 pl-2"><span class="font-title-md text-title-md text-foreground-strong whitespace-nowrap" id="callTodayOffice">–</span><span class="font-label-sm text-label-sm text-muted whitespace-nowrap" id="callDeltaOffice"></span></div></div>
 </div>
-<div class="mt-space-xs font-label-sm text-label-sm text-muted">메인 화면 모든 전화 버튼이 이 번호로 연결됩니다</div>
+<div class="mt-space-xs font-label-sm text-label-sm text-muted" id="callStatsNote">불러오는 중…</div>
 </div>
 <div class="bg-primary p-space-lg rounded-DEFAULT shadow-sm flex flex-col justify-between text-on-primary">
 <div class="flex items-center justify-between"><span class="font-label-md text-label-md opacity-90">신속 관리 액션</span><span class="material-symbols-outlined text-[20px]">bolt</span></div>
@@ -501,10 +501,35 @@ textarea.field { height: auto; padding: 0.7rem 0.85rem; line-height: 1.6; resize
     }
   }
 
+  function renderCallStats(stats, note) {
+    const lines = [["mobile", "Mobile"], ["office", "Office"]];
+    lines.forEach(([key, id]) => {
+      const today = stats ? stats.today[key] : null;
+      $("callToday" + id).textContent = today == null ? "–" : today + "건";
+      const delta = stats ? today - stats.yesterday[key] : null;
+      const el = $("callDelta" + id);
+      el.textContent = delta == null ? "" : "어제 " + stats.yesterday[key] + " " + (delta > 0 ? "▲" + delta : delta < 0 ? "▼" + -delta : "변동 없음");
+      el.className = "font-label-sm text-label-sm " + (delta > 0 ? "text-primary" : delta < 0 ? "text-error" : "text-muted");
+    });
+    $("callStatsNote").textContent = note;
+  }
+
+  async function loadCallStats(cfg) {
+    if (!cfg.api) return renderCallStats(null, "로컬 미리보기에서는 집계되지 않습니다.");
+    try {
+      const j = await apiRequest("GET", "/api/calls");
+      if (!j.configured) return renderCallStats(null, "통계 저장소 미연결 · Vercel에서 Upstash Redis를 연결하면 집계가 시작됩니다.");
+      renderCallStats(j, "전화 버튼 클릭 수 기준(실제 통화 완료 건수 아님) · 한국시간 " + j.today.date);
+    } catch (e) {
+      renderCallStats(null, "통계를 불러오지 못했습니다: " + e.message);
+    }
+  }
+
   async function reload(silent) {
     if (busy) return;
     try {
       const cfg = await loadConfig();
+      loadCallStats(cfg);
       properties = await getProperties();
       lastSync = Date.now();
       syncState = !cfg.api ? "local" : cfg.github_ready ? "ok" : "error";
