@@ -13,7 +13,7 @@
       "올확장"
     ],
     "description": "초등학교 도보 2분, 채광 우수한 남향 로얄층, 확장 및 빌트인 에어컨 풀시공 매물",
-    "visible": false,
+    "visible": true,
     "status": "active",
     "updated_at": "2026-10-21"
   },
@@ -30,7 +30,7 @@
       "강변 영구조망"
     ],
     "description": "남강 조망 확보된 프리미엄 동호수, 융자 무 입주 즉시 가능한 깔끔한 집",
-    "visible": false,
+    "visible": true,
     "status": "active",
     "updated_at": "2026-10-21"
   },
@@ -47,7 +47,7 @@
       "입주협의"
     ],
     "description": "신혼부부 강력 추천, 단지 바로 앞 중심상업권 및 버스정류장 인접",
-    "visible": false,
+    "visible": true,
     "status": "active",
     "updated_at": "2026-10-21"
   },
@@ -64,7 +64,7 @@
       "대로변 코너"
     ],
     "description": "횡단보도 바로 앞 유동인구 최다 보장 위치, 카페·베이커리·약국 추천",
-    "visible": false,
+    "visible": true,
     "status": "active",
     "updated_at": "2026-10-21"
   },
@@ -81,7 +81,7 @@
       "화이트톤 올수리"
     ],
     "description": "화이트톤 최고급 자재 인테리어 완비, 시스템 에어컨 4대 풀옵션",
-    "visible": false,
+    "visible": true,
     "status": "active",
     "updated_at": "2026-10-21"
   },
@@ -98,7 +98,7 @@
       "융자 없음"
     ],
     "description": "HUG 전세보증보험 가입 100% 가능, 즉시 입주 또는 협의 가능",
-    "visible": false,
+    "visible": true,
     "status": "active",
     "updated_at": "2026-10-21"
   },
@@ -115,7 +115,7 @@
       "프리미엄 조율가능"
     ],
     "description": "호수공원 영구 조망권 확보, 중도금 대출 승계 및 명의변경 원스톱 지원",
-    "visible": false,
+    "visible": true,
     "status": "active",
     "updated_at": "2026-10-21"
   },
@@ -132,7 +132,7 @@
       "시설비 없음"
     ],
     "description": "신규 입점 렌트프리 2개월 제공 협의, 병의원·학원·필라테스 추천",
-    "visible": false,
+    "visible": true,
     "status": "active",
     "updated_at": "2026-10-21"
   }
