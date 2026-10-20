@@ -16,12 +16,15 @@ GitHub 저장소의 `data/posts.json`을 데이터베이스로 쓰고, Vercel에
 | `news-detail.html` | 게시글 상세(`renderMarkdown`), 관리자일 때만 수정·삭제 |
 | `news-write.html` | 글쓰기·수정(관리자 전용, `requireAdmin()`) |
 | `admin.html` | 관리자 로그인 + 게시글 관리 대시보드 |
+| `property-admin.html` | 추천 매물 관리 센터(노출 토글, 거래완료 보관함, 순서 변경, 빠른 편집기, 신규 등록) |
 | `db.js` | 설정 로드, 게시글 CRUD, 로그인 세션, 마크다운 렌더러 |
 | `api/config.js` | 연동 상태만 반환(`api`, `github_ready`, `admin_ready`). 비밀값은 절대 반환하지 않음 |
 | `api/login.js` | `ADMIN_PASSWORD` 검증 후 12시간짜리 HMAC 세션 토큰 발급 |
 | `api/posts.js` | GET은 공개, POST/PUT/DELETE는 세션 토큰 필요. 서버에서 `GITHUB_TOKEN`으로 GitHub Contents API 호출 |
+| `api/properties.js` | GET은 공개, PUT은 세션 토큰 필요. `data/properties.json` 전체 목록을 검증 후 저장(진행 매물 최대 12건) |
 | `config/git_config.json` | `github_owner`, `github_repo`, `data_file_path` (토큰은 항상 `YOUR_GITHUB_TOKEN`) |
 | `data/posts.json` | 게시글 배열 |
+| `data/properties.json` | 추천 매물 배열. 배열 순서 = 메인 노출 순서. `status: "sold"`는 보관함, `visible: false`는 숨김 |
 | `templates/post-template.md` | 글 작성용 마크다운 템플릿 |
 | `vercel.json` | `cleanUrls`, `trailingSlash`만 사용하는 zero-config |
 
@@ -34,6 +37,28 @@ GitHub 저장소의 `data/posts.json`을 데이터베이스로 쓰고, Vercel에
 - 본문은 마크다운으로 저장하고, 상세는 `renderMarkdown`, 목록·미리보기 요약은 `markdownToText(...).slice(0, N)`을 사용한다.
 - `renderMarkdown`은 입력을 먼저 HTML-escape하고, 링크는 `http/https/mailto`만 허용하며, 코드 스팬은 백틱 기준 분할로 처리한다.
 - 내부 링크는 `admin.html`처럼 `.html`을 붙여도 된다(cleanUrls가 정규화). `db.js`, `agent.jpg`, `config/git_config.json`, `data/posts.json`, `/api/*` 같은 리소스 경로는 그대로 둔다.
+
+## 추천 매물 스키마
+
+```json
+{
+  "id": "CHUNG-2026-001",
+  "name": "대방노블랜드 더캐슬 [105동]",
+  "category": "apt | commercial | presale | land",
+  "trade": "trade | jeonse | monthly",
+  "price": "매매가·전세가·보증금",
+  "monthly": "월세(월세만)",
+  "area": "전용 84.9㎡ (34평형)",
+  "floor": "18층 / 남향",
+  "tags": ["초품아", "올확장"],
+  "description": "한 줄 설명",
+  "visible": true,
+  "status": "active | sold",
+  "updated_at": "YYYY-MM-DD"
+}
+```
+
+매물명에서 `[ ]`로 감싼 부분은 메인 화면에서 파란색으로 강조된다.
 
 ## 게시글 스키마
 

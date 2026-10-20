@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"><meta content="noindex, nofollow" name="robots"><title>추천 매물 관리 센터 | 혁신노블부동산</title><script src="db.js"></script><script>requireAdmin();</script><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-secondary": "#ffffff", "background": "#f7f9ff", "secondary": "#0059b9", "tertiary": "#0056b2", "surface-canvas": "#ffffff", "border-hairline": "#e5e8eb", "on-surface": "#181c20", "on-secondary-container": "#fefcff", "primary-fixed": "#dbe1ff", "on-primary": "#ffffff", "inverse-primary": "#b3c5ff", "on-primary-container": "#f5f5ff", "tertiary-fixed": "#d7e2ff", "tertiary-fixed-dim": "#acc7ff", "inverse-surface": "#2d3135", "surface-container-low": "#f1f4f9", "secondary-fixed-dim": "#acc7ff", "tag-metadata": "#b0b8c1", "on-background": "#181c20", "surface-container-lowest": "#ffffff", "tertiary-container": "#316fcd", "surface-variant": "#e0e3e8", "error-container": "#ffdad6", "on-tertiary-fixed": "#001a40", "surface": "#f7f9ff", "interactive-focus-ring": "#3182f6", "on-surface-variant": "#424656", "border-structural": "#d1d6db", "foreground-secondary": "#4e5968", "error": "#ba1a1a", "outline-variant": "#c2c6d8", "surface-container": "#ebeef3", "muted": "#6b7684", "on-primary-fixed-variant": "#003ea6", "on-primary-fixed": "#00174a", "foreground-strong": "#191f28", "on-error-container": "#93000a", "on-error": "#ffffff", "inverse-on-surface": "#eef1f6", "primary-fixed-dim": "#b3c5ff", "on-secondary-fixed-variant": "#004491", "on-tertiary-fixed-variant": "#004491", "surface-container-high": "#e5e8ee", "surface-muted": "#f2f4f6", "surface-container-highest": "#e0e3e8", "on-secondary-fixed": "#001a40", "surface-dim": "#d7dadf", "secondary-container": "#1071e5", "secondary-fixed": "#d7e2ff", "primary-container": "#0064ff", "surface-bright": "#f7f9ff", "on-tertiary-container": "#f5f6ff", "on-tertiary": "#ffffff", "surface-tint": "#0054d8", "primary": "#004ecb", "interactive-hover-tint": "rgba(217, 217, 255, 0.11)", "outline": "#737687" }, borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, spacing: { "gutter-mobile": "1rem", "gutter": "1.5rem", "space-lg": "1rem", "space-md": "0.75rem", "space-sm": "0.5rem", "margin-mobile": "1rem", "space-xs": "0.25rem", "space-xl": "2rem", "margin": "2rem", "xxl": "6rem" }, fontFamily: { "headline-lg-mobile": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "caption": ["Plus Jakarta Sans"], "title-md": ["Plus Jakarta Sans"], "display": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "display-mobile": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"] }, fontSize: { "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "700" }], "label-md": ["13px", { lineHeight: "18px", fontWeight: "500" }], "label-sm": ["12px", { lineHeight: "16px", fontWeight: "600" }], "caption": ["11px", { lineHeight: "16px", fontWeight: "600" }], "title-md": ["17px", { lineHeight: "24px", fontWeight: "700" }], "display": ["48px", { lineHeight: "62px", fontWeight: "700" }], "body-md": ["15px", { lineHeight: "24px", fontWeight: "400" }], "body-sm": ["14px", { lineHeight: "20px", fontWeight: "500" }], "display-mobile": ["32px", { lineHeight: "42px", fontWeight: "700" }], "headline-sm": ["20px", { lineHeight: "28px", fontWeight: "600" }], "headline-md": ["24px", { lineHeight: "34px", fontWeight: "700" }], "headline-lg": ["32px", { lineHeight: "42px", fontWeight: "700" }], "body-lg": ["16px", { lineHeight: "26px", fontWeight: "400" }] } } } };</script><style>@layer base { html, body { margin: 0; padding: 0; } body { -webkit-tap-highlight-color: transparent; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); } } ::-webkit-scrollbar { display: none; } .no-scrollbar { scrollbar-width: none; }
+.field { width: 100%; height: 44px; padding: 0 0.85rem; border-radius: 1rem; background: #f2f4f6; color: #191f28; font-size: 15px; border: 1px solid transparent; }
+.field:focus { outline: none; background: #ffffff; border-color: #3182f6; box-shadow: 0 0 0 3px rgba(49,130,246,0.15); }
+.field:disabled { color: #b0b8c1; }
+textarea.field { height: auto; padding: 0.7rem 0.85rem; line-height: 1.6; resize: vertical; }
+.switch { position: relative; display: inline-flex; width: 44px; height: 24px; flex-shrink: 0; }
+.switch input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; z-index: 1; }
+.switch span { position: absolute; inset: 0; border-radius: 9999px; background: #e0e3e8; transition: background .2s; }
+.switch span::after { content: ""; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; border-radius: 9999px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.2); transition: transform .2s; }
+.switch input:checked + span { background: #004ecb; }
+.switch input:checked + span::after { transform: translateX(20px); }
+.switch input:focus-visible + span { box-shadow: 0 0 0 3px rgba(49,130,246,.35); }
+.switch input:disabled { cursor: not-allowed; }
+.property-row.dragging { opacity: .4; }
+.property-row.drop-before { box-shadow: inset 0 3px 0 #0064ff; }
+.property-row.drop-after { box-shadow: inset 0 -3px 0 #0064ff; }
+.property-row.selected { background: #f1f4f9; box-shadow: inset 4px 0 0 #0064ff; }
+</style></head>
+<body class="bg-surface-muted text-on-surface font-body-md min-h-screen antialiased">
+<aside class="hidden lg:flex fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+<div class="flex flex-col">
+<div class="h-16 px-gutter flex items-center justify-between border-b border-border-hairline">
+<a class="flex items-center gap-space-sm" href="index.html">
+<div class="w-9 h-9 rounded-DEFAULT bg-primary-container flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[20px]">apartment</span></div>
+<div class="flex flex-col"><span class="font-title-md text-title-md text-foreground-strong tracking-tight leading-tight">혁신노블부동산</span><span class="font-caption text-caption text-primary">관리자 센터</span></div>
+</a>
+<span class="font-label-sm text-label-sm px-space-sm py-0.5 rounded-full bg-surface-container-low text-primary font-bold">PRO</span>
+</div>
+<div class="px-gutter pt-space-lg pb-space-sm"><span class="font-caption text-caption text-tag-metadata uppercase tracking-wider font-semibold">부동산 실무 관리</span></div>
+<nav class="flex flex-col gap-1 px-space-md">
+<a aria-current="page" class="flex items-center justify-between min-h-[44px] px-space-md rounded-DEFAULT bg-primary-container text-on-primary font-semibold" href="property-admin.html"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[20px]">hotel_class</span><span class="font-body-md text-body-md">추천/엄선 매물 관리</span></span><span class="font-label-sm text-label-sm bg-on-primary/20 px-2 rounded-full font-bold" id="navActiveCount">0</span></a>
+<button class="flex items-center justify-between min-h-[44px] px-space-md rounded-DEFAULT text-foreground-secondary hover:bg-surface-container-low hover:text-on-surface transition-all" data-new-property type="button"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[20px]">add_business</span><span class="font-body-md text-body-md">신규 매물 등록</span></span><span class="material-symbols-outlined text-[16px] text-muted">arrow_forward_ios</span></button>
+<div class="my-space-sm border-t border-border-hairline"></div>
+<div class="px-space-sm py-space-xs"><span class="font-caption text-caption text-tag-metadata uppercase tracking-wider font-semibold">고객 접점 및 컨텐츠</span></div>
+<a class="flex items-center min-h-[44px] px-space-md rounded-DEFAULT text-foreground-secondary hover:bg-surface-container-low hover:text-on-surface transition-all" href="admin.html"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[20px]">feed</span><span class="font-body-md text-body-md">부동산 뉴스 &amp; 공지 관리</span></span></a>
+<a class="flex items-center min-h-[44px] px-space-md rounded-DEFAULT text-foreground-secondary hover:bg-surface-container-low hover:text-on-surface transition-all" href="index.html" target="_blank"><span class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[20px]">open_in_new</span><span class="font-body-md text-body-md">웹사이트 바로가기</span></span></a>
+</nav>
+</div>
+<div class="p-space-lg border-t border-border-hairline">
+<div class="flex items-center gap-space-md p-space-md rounded-DEFAULT bg-surface-muted">
+<img alt="" class="w-10 h-10 rounded-full object-cover object-top bg-surface-container" src="agent.jpg">
+<div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-foreground-strong truncate font-bold">조우정 대표</span><span class="font-caption text-caption text-muted truncate">최고관리자 (공인중개사)</span></div>
+</div>
+</div>
+</aside>
+
+<div class="lg:pl-72">
+<header class="fixed top-0 left-0 lg:left-72 right-0 h-16 bg-surface-canvas/90 backdrop-blur-xl z-40 flex items-center justify-between gap-space-sm px-margin-mobile md:px-margin border-b border-border-hairline">
+<div class="flex items-center gap-space-sm min-w-0">
+<a class="lg:hidden w-9 h-9 rounded-DEFAULT bg-primary-container flex items-center justify-center shrink-0" href="index.html"><span class="material-symbols-outlined text-on-primary text-[20px]">apartment</span></a>
+<div class="hidden md:flex items-center gap-space-sm text-muted font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px] text-foreground-secondary">home</span><span class="text-border-structural">/</span><span class="text-foreground-secondary">매물 관리</span><span class="text-border-structural">/</span><span class="text-primary font-semibold">실시간 엄선 추천 매물 관리</span>
+</div>
+<span class="md:hidden font-title-md text-title-md text-foreground-strong truncate">추천 매물 관리</span>
+</div>
+<div class="flex items-center gap-space-xs md:gap-space-md shrink-0">
+<a class="flex items-center gap-1 min-h-[44px] px-space-md rounded-full bg-primary-fixed/40 text-primary hover:text-secondary font-label-md text-label-md transition-colors" href="index.html" target="_blank"><span class="material-symbols-outlined text-[18px]">open_in_new</span><span class="hidden sm:inline">웹사이트 바로가기</span></a>
+<a class="lg:hidden flex items-center justify-center w-11 h-11 rounded-full text-foreground-secondary hover:bg-surface-container-low" href="admin.html" title="뉴스 관리"><span class="material-symbols-outlined text-[22px]">feed</span></a>
+<div class="hidden xl:flex items-center gap-space-sm"><div class="h-4 w-px bg-border-hairline"></div><span class="font-label-md text-label-md text-foreground-strong font-bold">조우정 대표 공인중개사</span></div>
+<button class="flex items-center gap-1 min-h-[44px] px-2 text-muted hover:text-error font-label-md text-label-md transition-colors" id="logoutBtn" type="button"><span class="material-symbols-outlined text-[18px]">logout</span><span class="hidden sm:inline">로그아웃</span></button>
+</div>
+</header>
+
+<main class="w-full pt-16 pb-xxl min-h-screen">
+<div class="px-margin-mobile md:px-margin py-gutter max-w-[1540px] w-full mx-auto flex flex-col gap-space-lg">
+
+<div class="w-full bg-surface-canvas rounded-DEFAULT p-space-md shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary-fixed/50 text-primary shrink-0"><span class="material-symbols-outlined text-[18px]" id="syncIcon">sync</span></span>
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="inline-flex items-center gap-1.5 px-space-md py-1 rounded-full bg-primary-fixed text-primary font-label-sm text-label-sm" id="syncBadge"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span id="syncBadgeText">연결 확인 중</span></span>
+<span class="font-body-sm text-body-sm text-foreground-secondary">메인 방문자 화면과 즉시 양방향 동기화 중 <span class="text-muted" id="syncAgo"></span></span>
+</div>
+</div>
+<button class="self-end md:self-auto flex items-center gap-1 min-h-[44px] px-space-md rounded-full text-foreground-secondary hover:text-primary hover:bg-surface-container-low font-label-md text-label-md transition-colors" id="refreshBtn" type="button"><span class="material-symbols-outlined text-[18px]">refresh</span>최신 상태 불러오기</button>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+<div class="bg-surface-canvas p-space-lg rounded-DEFAULT shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-foreground-secondary"><span class="font-label-md text-label-md">추천 엄선 매물</span><span class="w-8 h-8 rounded-DEFAULT bg-surface-container flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[18px]">hotel_class</span></span></div>
+<div class="mt-space-md flex items-baseline justify-between gap-2">
+<div class="flex items-baseline gap-1"><span class="font-headline-lg text-headline-lg text-foreground-strong" id="statActive">0</span><span class="font-body-md text-body-md text-foreground-secondary">건 등록</span></div>
+<span class="font-label-sm text-label-sm px-space-sm py-0.5 rounded-full bg-surface-container text-foreground-secondary" id="statCapacity">정원 12건 중</span>
+</div>
+<div class="mt-space-sm h-1.5 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-primary rounded-full transition-all" id="statCapacityBar" style="width:0%"></div></div>
+<div class="mt-space-sm flex items-center justify-between font-label-sm text-label-sm text-muted"><span class="text-primary font-semibold" id="statVisible">노출 중 0건</span><span id="statHidden">비노출 0 · 거래완료 0</span></div>
+</div>
+<div class="bg-surface-canvas p-space-lg rounded-DEFAULT shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-foreground-secondary"><span class="font-label-md text-label-md">거래유형별 노출 매물</span><span class="w-8 h-8 rounded-DEFAULT bg-primary-fixed/40 flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[18px]">sell</span></span></div>
+<div class="mt-space-md grid grid-cols-3 gap-1 text-center">
+<div class="flex flex-col"><span class="font-headline-md text-headline-md text-foreground-strong" id="statTrade">0</span><span class="font-label-sm text-label-sm text-muted">매매</span></div>
+<div class="flex flex-col"><span class="font-headline-md text-headline-md text-foreground-strong" id="statJeonse">0</span><span class="font-label-sm text-label-sm text-muted">전세</span></div>
+<div class="flex flex-col"><span class="font-headline-md text-headline-md text-foreground-strong" id="statMonthly">0</span><span class="font-label-sm text-label-sm text-muted">월세</span></div>
+</div>
+<div class="mt-space-sm font-label-sm text-label-sm text-muted">메인 화면에 실제로 보이는 매물 기준</div>
+</div>
+<div class="bg-surface-canvas p-space-lg rounded-DEFAULT shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-foreground-secondary"><span class="font-label-md text-label-md">상담 연결 번호</span><span class="w-8 h-8 rounded-DEFAULT bg-surface-container flex items-center justify-center text-secondary"><span class="material-symbols-outlined text-[18px]">verified_user</span></span></div>
+<div class="mt-space-md flex flex-col gap-1">
+<a class="flex items-center justify-between min-h-[44px] px-space-sm rounded-DEFAULT hover:bg-surface-container-low" href="tel:010-4489-3936"><span class="font-label-sm text-label-sm text-muted">대표 직통</span><span class="font-title-md text-title-md text-foreground-strong">010-4489-3936</span></a>
+<a class="flex items-center justify-between min-h-[44px] px-space-sm rounded-DEFAULT hover:bg-surface-container-low" href="tel:055-762-2565"><span class="font-label-sm text-label-sm text-muted">사무실 유선</span><span class="font-title-md text-title-md text-foreground-strong">055-762-2565</span></a>
+</div>
+<div class="mt-space-xs font-label-sm text-label-sm text-muted">메인 화면 모든 전화 버튼이 이 번호로 연결됩니다</div>
+</div>
+<div class="bg-primary p-space-lg rounded-DEFAULT shadow-sm flex flex-col justify-between text-on-primary">
+<div class="flex items-center justify-between"><span class="font-label-md text-label-md opacity-90">신속 관리 액션</span><span class="material-symbols-outlined text-[20px]">bolt</span></div>
+<div class="mt-space-sm flex flex-col gap-2">
+<button class="w-full min-h-[44px] px-3 rounded-full bg-surface-canvas text-primary font-label-md text-label-md font-bold flex items-center justify-center gap-1.5 shadow-sm hover:bg-surface-container-low transition-all disabled:opacity-60" data-new-property type="button"><span class="material-symbols-outlined text-[18px]">add</span>신규 추천 매물 등록</button>
+<a class="w-full min-h-[44px] px-3 rounded-full bg-on-primary/10 hover:bg-on-primary/20 text-on-primary font-label-md text-label-md font-semibold flex items-center justify-center gap-1 transition-all" href="index.html#properties" target="_blank"><span class="material-symbols-outlined text-[16px]">open_in_new</span>메인 웹사이트 라이브 확인</a>
+</div>
+</div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<div class="lg:col-span-7 xl:col-span-8 flex flex-col gap-space-md min-w-0">
+<div class="bg-surface-canvas p-space-lg rounded-DEFAULT shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center gap-1 p-1 rounded-full bg-surface-muted self-start" role="tablist">
+<button class="view-tab min-h-[40px] px-4 rounded-full font-label-md text-label-md font-bold bg-surface-canvas text-foreground-strong shadow-sm" data-view="active" type="button">진행 매물 <span id="tabActiveCount">0</span></button>
+<button class="view-tab min-h-[40px] px-4 rounded-full font-label-md text-label-md text-foreground-secondary" data-view="sold" type="button">거래완료 보관함 <span id="tabSoldCount">0</span></button>
+</div>
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-md">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-muted text-[20px] pointer-events-none">search</span>
+<input class="field" id="searchInput" placeholder="매물명, 단지명, 동, 태그 검색 (예: 대방노블랜드, 초품아)" style="padding-left:2.75rem" type="search">
+</div>
+<div class="flex items-center gap-space-xs shrink-0" id="batchActions">
+<button class="min-h-[44px] px-3 rounded-DEFAULT bg-surface-muted hover:bg-surface-container text-foreground-secondary font-label-md text-label-md flex items-center gap-1 transition-colors disabled:opacity-50" id="batchExposeBtn" type="button"><span class="material-symbols-outlined text-[18px]">visibility</span>일괄 노출</button>
+<button class="min-h-[44px] px-3 rounded-DEFAULT bg-surface-muted hover:bg-surface-container text-foreground-secondary font-label-md text-label-md flex items-center gap-1 transition-colors disabled:opacity-50" id="batchHideBtn" type="button"><span class="material-symbols-outlined text-[18px]">visibility_off</span>일괄 숨김</button>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar" id="categoryChips"></div>
+<div class="flex items-center gap-1 bg-surface-muted p-1 rounded-full" id="tradeChips"></div>
+</div>
+</div>
+
+<div class="bg-surface-canvas rounded-DEFAULT shadow-sm overflow-hidden flex flex-col">
+<div class="px-space-lg py-space-md bg-surface-muted flex flex-wrap items-center justify-between gap-2">
+<label class="flex items-center gap-space-sm min-h-[32px] cursor-pointer"><input class="w-4 h-4 accent-primary cursor-pointer" id="selectAllCheckbox" type="checkbox"><span class="font-label-sm text-label-sm text-foreground-secondary font-semibold">전체 선택 (<span id="selectedCount">0</span>/<span id="shownCount">0</span>)</span></label>
+<span class="font-label-sm text-label-sm text-muted" id="orderHint">드래그하거나 ▲▼ 버튼으로 메인 화면 노출 순서(TOP 1~12)를 바꿀 수 있습니다</span>
+</div>
+<div class="flex flex-col divide-y divide-border-hairline" id="propertyItemsList">
+<div class="p-space-xl text-center font-body-sm text-body-sm text-muted">매물을 불러오는 중입니다…</div>
+</div>
+<div class="p-space-md flex items-center justify-between font-label-sm text-label-sm text-muted border-t border-border-hairline"><span id="listFooter">표시 중: 0건</span></div>
+</div>
+
+<div class="bg-surface-canvas p-space-lg rounded-DEFAULT shadow-sm flex items-start gap-space-md">
+<div class="w-9 h-9 rounded-full bg-primary-fixed flex items-center justify-center text-primary shrink-0"><span class="material-symbols-outlined text-[20px]">lightbulb</span></div>
+<div class="flex flex-col gap-1">
+<span class="font-title-md text-title-md text-foreground-strong font-bold">공인중개사 관리자 실무 안내</span>
+<p class="font-body-sm text-body-sm text-foreground-secondary leading-relaxed">매물을 누르면 오른쪽 편집기에 불러옵니다. 내용을 고친 뒤 <strong>[변경사항 저장 및 메인 즉시 반영]</strong>을 누르면 메인 화면 추천 매물에 바로 반영됩니다. 노출 스위치·거래완료·순서 변경은 누르는 즉시 저장됩니다. 매물명에서 <strong>[105동]</strong>처럼 대괄호로 감싼 부분은 메인 화면에서 파란색으로 강조됩니다.</p>
+</div>
+</div>
+</div>
+
+<div class="lg:col-span-5 xl:col-span-4 lg:sticky lg:top-20 flex flex-col gap-space-md" id="editorPanel">
+<form class="bg-surface-canvas p-space-lg rounded-DEFAULT shadow-sm flex flex-col gap-space-md" id="quickEditorForm" novalidate>
+<div class="flex items-center justify-between gap-2">
+<div class="flex items-center gap-space-xs"><span class="w-2.5 h-2.5 rounded-full bg-primary"></span><span class="font-title-md text-title-md text-foreground-strong font-bold" id="editorTitle">실시간 빠른 편집기</span></div>
+<span class="font-caption text-caption text-primary bg-primary-fixed/50 px-2 py-0.5 rounded-full font-bold" id="currentEditingId">선택 없음</span>
+</div>
+<p class="font-body-sm text-body-sm text-foreground-secondary" id="editorHint">목록에서 매물을 누르면 세부 정보가 여기에 바로 불러와집니다.</p>
+<fieldset class="flex flex-col gap-space-md disabled:opacity-60" disabled id="editorFields">
+<label class="flex flex-col gap-1"><span class="font-label-sm text-label-sm text-foreground-secondary font-bold">단지명 및 매물 표기명</span><input class="field" id="editName" maxlength="80" placeholder="예: 대방노블랜드 더캐슬 [105동]" type="text"></label>
+<label class="flex flex-col gap-1"><span class="font-label-sm text-label-sm text-foreground-secondary font-bold">매물 종류</span><select class="field" id="editCategory"></select></label>
+<div class="flex flex-col gap-1"><span class="font-label-sm text-label-sm text-foreground-secondary font-bold">거래 유형</span><div class="grid grid-cols-3 gap-1 p-1 bg-surface-muted rounded-DEFAULT" id="tradePills"></div></div>
+<div class="grid grid-cols-2 gap-space-sm">
+<label class="flex flex-col gap-1"><span class="font-label-sm text-label-sm text-foreground-secondary font-bold" id="priceLabel">매매가</span><input class="field" id="editPrice" maxlength="40" placeholder="예: 5억 8,000만" type="text"></label>
+<label class="flex flex-col gap-1"><span class="font-label-sm text-label-sm text-foreground-secondary font-bold">월세 (월세만)</span><input class="field" id="editMonthly" maxlength="40" placeholder="예: 230만" type="text"></label>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<label class="flex flex-col gap-1"><span class="font-label-sm text-label-sm text-foreground-secondary font-bold">전용/공급 면적</span><input class="field" id="editArea" maxlength="60" placeholder="예: 전용 84.9㎡ (34평형)" type="text"></label>
+<label class="flex flex-col gap-1"><span class="font-label-sm text-label-sm text-foreground-secondary font-bold">층수 / 향</span><input class="field" id="editFloor" maxlength="60" placeholder="예: 18층 / 남향" type="text"></label>
+</div>
+<div class="flex flex-col gap-1.5">
+<span class="font-label-sm text-label-sm text-foreground-secondary font-bold">강조 홍보 태그 (최대 8개)</span>
+<div class="flex flex-wrap gap-1.5" id="tagsList"></div>
+<div class="flex gap-1.5"><input class="field" id="tagInput" maxlength="20" placeholder="태그 입력 후 Enter (예: 초품아)" type="text"><button class="shrink-0 min-h-[44px] px-3 rounded-DEFAULT bg-surface-muted hover:bg-primary-fixed text-primary font-label-md text-label-md font-bold flex items-center gap-0.5" id="addTagBtn" type="button"><span class="material-symbols-outlined text-[16px]">add</span>추가</button></div>
+</div>
+<label class="flex flex-col gap-1"><span class="font-label-sm text-label-sm text-foreground-secondary font-bold">한 줄 설명</span><textarea class="field" id="editDescription" maxlength="200" placeholder="예: 초등학교 도보 2분, 채광 우수한 남향 로얄층" rows="2"></textarea></label>
+<div class="p-space-md rounded-DEFAULT bg-surface-muted flex items-center justify-between gap-2">
+<div class="flex flex-col"><span class="font-label-md text-label-md text-foreground-strong font-bold">메인 추천 즉시 노출</span><span class="font-label-sm text-label-sm text-foreground-secondary">방문자 첫 화면 카드 게시</span></div>
+<label class="switch"><input id="editVisible" type="checkbox"><span></span></label>
+</div>
+<div class="flex items-center gap-space-sm p-space-sm rounded-DEFAULT bg-surface-container-low text-foreground-secondary font-label-sm text-label-sm"><span class="material-symbols-outlined text-[18px] text-primary shrink-0">contact_phone</span><span>상담 연결: 조우정 대표 직통 (010-4489-3936) 자동 할당</span></div>
+<p class="hidden px-space-md py-space-sm rounded-DEFAULT bg-error-container text-on-error-container font-body-sm text-body-sm" id="editorError"></p>
+<div class="flex flex-col gap-2 pt-space-xs">
+<button class="w-full min-h-[48px] rounded-full bg-primary-container hover:bg-interactive-focus-ring text-on-primary font-title-md text-title-md font-bold shadow-sm transition-all flex items-center justify-center gap-1.5 active:scale-[0.99] disabled:opacity-60" id="saveSubmitBtn" type="submit"><span class="material-symbols-outlined text-[20px]">save</span><span id="saveSubmitText">변경사항 저장 및 메인 즉시 반영</span></button>
+<button class="w-full min-h-[44px] rounded-full bg-surface-muted hover:bg-surface-container text-foreground-secondary font-label-md text-label-md font-semibold transition-all" id="resetBtn" type="button">수정 취소 / 원래대로</button>
+</div>
+</fieldset>
+</form>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+<div class="fixed bottom-6 right-4 md:right-6 left-4 md:left-auto z-50 translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-space-lg py-3 rounded-DEFAULT bg-foreground-strong text-surface-canvas shadow-xl" id="liveToast">
+<span class="material-symbols-outlined text-interactive-focus-ring text-[22px]" id="toastIcon">check_circle</span>
+<div class="flex flex-col"><span class="font-label-md text-label-md font-bold" id="toastTitle"></span><span class="font-label-sm text-label-sm text-surface-variant" id="toastDesc"></span></div>
+</div>
+
+<script>
+(function () {
+  if (!isAdmin()) return;
+
+  const TRADE_STYLE = { trade: "bg-primary-fixed text-primary", jeonse: "bg-tertiary-fixed text-tertiary", monthly: "bg-secondary-fixed text-secondary" };
+  const CATEGORY_ICON = { apt: "apartment", commercial: "storefront", presale: "description", land: "landscape" };
+  const $ = id => document.getElementById(id);
+
+  let properties = [];
+  let view = "active";
+  let filterCategory = "all";
+  let filterTrade = "all";
+  let selectedIds = new Set();
+  let editingId = null;
+  let isNew = false;
+  let draft = null;
+  let editorTags = [];
+  let busy = false;
+  let lastSync = null;
+  let syncState = "loading";
+  let dragId = null;
+
+  function showToast(title, desc, isError) {
+    const toast = $("liveToast");
+    $("toastTitle").textContent = title;
+    $("toastDesc").textContent = desc || "";
+    $("toastIcon").textContent = isError ? "error" : "check_circle";
+    $("toastIcon").className = "material-symbols-outlined text-[22px] " + (isError ? "text-error-container" : "text-interactive-focus-ring");
+    toast.classList.remove("translate-y-24", "opacity-0");
+    clearTimeout(showToast.timer);
+    showToast.timer = setTimeout(() => toast.classList.add("translate-y-24", "opacity-0"), 3500);
+  }
+
+  function activeList() { return properties.filter(p => p.status === "active"); }
+  function soldList() { return properties.filter(p => p.status === "sold"); }
+  function findProperty(id) { return properties.find(p => p.id === id) || null; }
+  function today() { return todayString(); }
+
+  function renderSync() {
+    const badge = $("syncBadge");
+    const labels = {
+      loading: ["연결 확인 중", "bg-surface-container text-foreground-secondary"],
+      ok: ["실시간 정상 연동 중", "bg-primary-fixed text-primary"],
+      saving: ["저장 중…", "bg-primary-fixed text-primary"],
+      local: ["로컬 미리보기 모드", "bg-surface-container-high text-foreground-strong"],
+      error: ["연동 오류", "bg-error-container text-on-error-container"]
+    };
+    const [text, cls] = labels[syncState] || labels.loading;
+    badge.className = "inline-flex items-center gap-1.5 px-space-md py-1 rounded-full font-label-sm text-label-sm " + cls;
+    $("syncBadgeText").textContent = text;
+    $("syncIcon").classList.toggle("animate-spin", syncState === "saving" || syncState === "loading");
+    if (!lastSync) { $("syncAgo").textContent = ""; return; }
+    const sec = Math.round((Date.now() - lastSync) / 1000);
+    $("syncAgo").textContent = "(최근 동기화: " + (sec < 60 ? "방금 전" : Math.floor(sec / 60) + "분 전") + ")";
+  }
+
+  function renderStats() {
+    const active = activeList();
+    const shown = active.filter(p => p.visible);
+    $("statActive").textContent = active.length;
+    $("statCapacity").textContent = "정원 " + MAX_PROPERTIES + "건 중";
+    $("statCapacityBar").style.width = Math.min(100, active.length / MAX_PROPERTIES * 100) + "%";
+    $("statVisible").textContent = "노출 중 " + shown.length + "건";
+    $("statHidden").textContent = "비노출 " + (active.length - shown.length) + " · 거래완료 " + soldList().length;
+    $("statTrade").textContent = shown.filter(p => p.trade === "trade").length;
+    $("statJeonse").textContent = shown.filter(p => p.trade === "jeonse").length;
+    $("statMonthly").textContent = shown.filter(p => p.trade === "monthly").length;
+    $("navActiveCount").textContent = active.length;
+    $("tabActiveCount").textContent = active.length;
+    $("tabSoldCount").textContent = soldList().length;
+    const full = active.length >= MAX_PROPERTIES;
+    document.querySelectorAll("[data-new-property]").forEach(b => {
+      b.disabled = full || busy;
+      b.title = full ? "정원(" + MAX_PROPERTIES + "건)이 찼습니다. 거래완료 처리 후 등록하세요." : "";
+    });
+  }
+
+  function viewList() { return view === "active" ? activeList() : soldList(); }
+
+  function filteredList() {
+    const q = $("searchInput").value.trim().toLowerCase();
+    return viewList().filter(p => {
+      if (filterCategory !== "all" && p.category !== filterCategory) return false;
+      if (filterTrade !== "all" && p.trade !== filterTrade) return false;
+      if (!q) return true;
+      return [propertyPlainName(p.name), p.area, p.floor, p.description, p.tags.join(" "), p.id].join(" ").toLowerCase().includes(q);
+    });
+  }
+
+  function isFiltered() {
+    return filterCategory !== "all" || filterTrade !== "all" || !!$("searchInput").value.trim();
+  }
+
+  function renderChips() {
+    const base = viewList();
+    const cats = [["all", "전체"]].concat(Object.entries(PROPERTY_CATEGORIES));
+    $("categoryChips").innerHTML = cats.map(([key, label]) => {
+      const count = key === "all" ? base.length : base.filter(p => p.category === key).length;
+      const active = key === filterCategory;
+      return '<button class="shrink-0 min-h-[40px] px-3 rounded-full font-label-sm text-label-sm transition-all ' + (active ? "bg-primary-container text-on-primary font-semibold" : "bg-surface-muted text-foreground-secondary hover:bg-surface-container") + '" data-cat="' + key + '" type="button">' + label + " (" + count + ")</button>";
+    }).join("");
+    const trades = [["all", "전체"]].concat(Object.entries(PROPERTY_TRADES));
+    $("tradeChips").innerHTML = trades.map(([key, label]) => {
+      const active = key === filterTrade;
+      return '<button class="min-h-[36px] px-3 rounded-full font-label-sm text-label-sm ' + (active ? "bg-surface-canvas text-foreground-strong shadow-sm font-bold" : "text-foreground-secondary hover:text-foreground-strong") + '" data-trade="' + key + '" type="button">' + label + "</button>";
+    }).join("");
+  }
+
+  function rowHtml(p) {
+    const active = activeList();
+    const rank = active.indexOf(p) + 1;
+    const sold = p.status === "sold";
+    const canDrag = !sold && !isFiltered() && !busy;
+    const checked = selectedIds.has(p.id) ? " checked" : "";
+    const statusText = sold ? "거래완료" : p.visible ? "노출중" : "비노출";
+    const statusCls = sold ? "text-error" : p.visible ? "text-primary" : "text-tag-metadata";
+    const tags = p.tags.map(t => '<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-foreground-secondary">' + escapeHtml(t) + "</span>").join("");
+    const left =
+      '<div class="flex items-center gap-2 shrink-0">' +
+        (sold ? "" : '<span class="material-symbols-outlined text-[20px] ' + (canDrag ? "text-muted cursor-grab hover:text-foreground-strong" : "text-border-structural") + ' hidden md:inline" title="드래그해서 순서 변경">drag_indicator</span>') +
+        '<input aria-label="선택" class="row-checkbox w-4 h-4 accent-primary cursor-pointer" data-id="' + escapeHtml(p.id) + '" type="checkbox"' + checked + ">" +
+        (sold ? "" : '<span class="w-7 h-7 rounded-full ' + (rank <= 3 ? "bg-primary text-on-primary" : "bg-surface-container text-foreground-secondary") + ' font-label-sm text-label-sm font-bold flex items-center justify-center">' + rank + "</span>") +
+      "</div>" +
+      '<div class="w-14 h-14 rounded-DEFAULT bg-surface-container-low text-primary shrink-0 hidden sm:flex items-center justify-center relative"><span class="material-symbols-outlined text-[26px]">' + (CATEGORY_ICON[p.category] || "home") + "</span>" + (!sold && rank === 1 ? '<span class="absolute top-1 left-1 px-1 rounded bg-foreground-strong/80 text-surface-canvas text-[10px] font-bold">TOP</span>' : "") + "</div>";
+    const info =
+      '<div class="flex flex-col min-w-0 flex-1">' +
+        '<div class="flex items-center gap-space-xs flex-wrap">' +
+          '<span class="px-2 py-0.5 rounded font-label-sm text-label-sm font-bold ' + (TRADE_STYLE[p.trade] || "") + '">' + (p.category === "presale" ? "분양권" : PROPERTY_TRADES[p.trade]) + "</span>" +
+          '<span class="font-title-md text-title-md text-foreground-strong font-bold break-keep">' + renderPropertyName(p.name) + "</span>" +
+          (p.floor ? '<span class="font-label-sm text-label-sm text-foreground-secondary">' + escapeHtml(p.floor) + "</span>" : "") +
+        "</div>" +
+        '<div class="flex items-baseline gap-space-sm mt-0.5 flex-wrap"><span class="font-headline-sm text-headline-sm text-primary font-bold">' + escapeHtml(propertyPriceLabel(p)) + "</span>" + (p.area ? '<span class="font-body-sm text-body-sm text-foreground-secondary">' + escapeHtml(p.area) + "</span>" : "") + "</div>" +
+        '<div class="flex items-center gap-1.5 mt-1.5 flex-wrap">' + tags + (p.updated_at ? '<span class="font-label-sm text-label-sm text-tag-metadata ml-1">수정: ' + escapeHtml(formatDate(p.updated_at)) + "</span>" : "") + "</div>" +
+      "</div>";
+    const actions = sold
+      ? '<button class="restore-btn min-h-[40px] px-3 rounded-DEFAULT bg-surface-container hover:bg-primary hover:text-on-primary text-foreground-secondary font-label-md text-label-md transition-all" type="button">복원</button>' +
+        '<button class="remove-btn min-h-[40px] px-3 rounded-DEFAULT bg-surface-muted hover:bg-error-container hover:text-on-error-container text-muted font-label-md text-label-md transition-all" type="button">영구 삭제</button>'
+      : '<div class="flex items-center gap-2"><span class="font-label-sm text-label-sm font-bold w-10 text-right ' + statusCls + '">' + statusText + '</span><label class="switch" title="메인 노출 전환"><input aria-label="메인 노출" class="expose-toggle" type="checkbox"' + (p.visible ? " checked" : "") + (busy ? " disabled" : "") + "><span></span></label></div>" +
+        '<div class="flex flex-col md:hidden"><button aria-label="위로" class="move-up w-10 h-6 flex items-center justify-center text-muted hover:text-primary disabled:opacity-30" type="button"' + (rank === 1 || isFiltered() ? " disabled" : "") + '><span class="material-symbols-outlined text-[20px]">arrow_drop_up</span></button><button aria-label="아래로" class="move-down w-10 h-6 flex items-center justify-center text-muted hover:text-primary disabled:opacity-30" type="button"' + (rank === active.length || isFiltered() ? " disabled" : "") + '><span class="material-symbols-outlined text-[20px]">arrow_drop_down</span></button></div>' +
+        '<button class="edit-btn min-h-[40px] px-3 rounded-DEFAULT bg-surface-container hover:bg-primary hover:text-on-primary text-foreground-secondary font-label-md text-label-md transition-all flex items-center gap-1" type="button"><span class="material-symbols-outlined text-[16px]">edit</span>수정</button>' +
+        '<button class="complete-btn min-h-[40px] px-3 rounded-DEFAULT bg-surface-muted hover:bg-error-container hover:text-on-error-container text-muted font-label-md text-label-md transition-all" title="거래완료 보관처리" type="button">거래완료</button>';
+    return '<div class="property-row group p-space-lg hover:bg-surface-container-low transition-colors flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md cursor-pointer' + (p.id === editingId ? " selected" : "") + (sold ? " opacity-70" : "") + '" data-id="' + escapeHtml(p.id) + '"' + (canDrag ? ' draggable="true"' : "") + ">" +
+      '<div class="flex items-center gap-space-md min-w-0 flex-1 w-full">' + left + info + "</div>" +
+      '<div class="flex items-center gap-space-sm shrink-0 self-end md:self-center flex-wrap justify-end">' + actions + "</div>" +
+    "</div>";
+  }
+
+  function renderList() {
+    const list = filteredList();
+    const box = $("propertyItemsList");
+    if (!list.length) {
+      box.innerHTML = '<div class="p-space-xl text-center font-body-md text-body-md text-muted">' + (view === "sold" ? "거래완료 보관함이 비어 있습니다." : viewList().length ? "조건에 맞는 매물이 없습니다." : "등록된 추천 매물이 없습니다. [신규 추천 매물 등록]으로 추가해 보세요.") + "</div>";
+    } else {
+      box.innerHTML = list.map(rowHtml).join("");
+    }
+    selectedIds = new Set([...selectedIds].filter(id => list.some(p => p.id === id)));
+    $("selectedCount").textContent = selectedIds.size;
+    $("shownCount").textContent = list.length;
+    $("selectAllCheckbox").checked = list.length > 0 && selectedIds.size === list.length;
+    $("listFooter").textContent = "표시 중: " + list.length + "건" + (isFiltered() ? " (필터 적용)" : "");
+    $("orderHint").textContent = view === "sold" ? "복원하면 진행 매물 맨 아래에 추가됩니다" : isFiltered() ? "순서 변경은 필터·검색을 해제한 상태에서 할 수 있습니다" : "드래그하거나 ▲▼ 버튼으로 메인 화면 노출 순서(TOP 1~" + MAX_PROPERTIES + ")를 바꿀 수 있습니다";
+    $("batchActions").classList.toggle("hidden", view === "sold");
+  }
+
+  function renderAll() {
+    renderSync();
+    renderStats();
+    renderChips();
+    renderList();
+  }
+
+  function setTrade(trade) {
+    document.querySelectorAll("#tradePills button").forEach(b => {
+      const on = b.getAttribute("data-trade") === trade;
+      b.className = "min-h-[40px] text-center font-label-md text-label-md rounded-DEFAULT " + (on ? "bg-primary text-on-primary font-bold shadow-sm" : "text-foreground-secondary hover:text-foreground-strong");
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    $("editMonthly").disabled = trade !== "monthly";
+    if (trade !== "monthly") $("editMonthly").value = "";
+    $("priceLabel").textContent = trade === "monthly" ? "보증금" : trade === "jeonse" ? "전세가" : "매매가 / 분양가";
+  }
+
+  function currentTrade() {
+    const b = document.querySelector('#tradePills button[aria-pressed="true"]');
+    return b ? b.getAttribute("data-trade") : "trade";
+  }
+
+  function renderTags() {
+    $("tagsList").innerHTML = editorTags.length
+      ? editorTags.map((t, i) => '<span class="inline-flex items-center gap-1 pl-2.5 pr-1 py-0.5 rounded-full bg-primary-fixed text-primary font-label-sm text-label-sm font-bold">' + escapeHtml(t) + '<button aria-label="태그 삭제" class="w-7 h-7 rounded-full flex items-center justify-center hover:text-error" data-tag-index="' + i + '" type="button">✕</button></span>').join("")
+      : '<span class="font-label-sm text-label-sm text-muted">아직 태그가 없습니다.</span>';
+  }
+
+  function addTag() {
+    const v = $("tagInput").value.replace(/[·,]/g, " ").trim();
+    if (!v) return;
+    if (editorTags.length >= 8) return showEditorError("태그는 최대 8개까지 넣을 수 있습니다.");
+    if (!editorTags.includes(v)) editorTags.push(v);
+    $("tagInput").value = "";
+    renderTags();
+  }
+
+  function showEditorError(msg) {
+    $("editorError").textContent = msg || "";
+    $("editorError").classList.toggle("hidden", !msg);
+  }
+
+  function fillEditor(p) {
+    $("editName").value = p.name;
+    $("editCategory").value = p.category;
+    setTrade(p.trade);
+    $("editPrice").value = p.price;
+    $("editMonthly").value = p.monthly;
+    $("editArea").value = p.area;
+    $("editFloor").value = p.floor;
+    $("editDescription").value = p.description;
+    $("editVisible").checked = p.visible;
+    editorTags = p.tags.slice();
+    renderTags();
+    showEditorError("");
+  }
+
+  function readEditor() {
+    return normalizeProperty({
+      id: editingId || "",
+      name: $("editName").value,
+      category: $("editCategory").value,
+      trade: currentTrade(),
+      price: $("editPrice").value,
+      monthly: currentTrade() === "monthly" ? $("editMonthly").value : "",
+      area: $("editArea").value,
+      floor: $("editFloor").value,
+      tags: editorTags,
+      description: $("editDescription").value,
+      visible: $("editVisible").checked,
+      status: "active",
+      updated_at: today()
+    });
+  }
+
+  function isDirty() {
+    if (!draft) return false;
+    const a = readEditor(), b = draft;
+    return ["name", "category", "trade", "price", "monthly", "area", "floor", "description", "visible"].some(k => a[k] !== b[k]) || a.tags.join("|") !== b.tags.join("|");
+  }
+
+  function confirmDiscard() {
+    return !isDirty() || confirm("편집 중인 내용이 저장되지 않았습니다. 버리고 계속할까요?");
+  }
+
+  function openEditor(p, asNew) {
+    isNew = !!asNew;
+    editingId = asNew ? null : p.id;
+    draft = normalizeProperty(p);
+    fillEditor(draft);
+    $("editorFields").disabled = false;
+    $("currentEditingId").textContent = asNew ? "신규 등록" : "#" + p.id;
+    $("editorTitle").textContent = asNew ? "신규 추천 매물 등록" : "실시간 빠른 편집기";
+    $("editorHint").textContent = asNew ? "정보를 입력하고 저장하면 추천 매물 TOP 1로 바로 게시됩니다." : "수정 후 저장하면 메인 화면에 바로 반영됩니다.";
+    $("saveSubmitText").textContent = asNew ? "신규 매물 등록 및 메인 즉시 게시" : "변경사항 저장 및 메인 즉시 반영";
+    renderList();
+    if (window.innerWidth < 1024) $("editorPanel").scrollIntoView({ behavior: "smooth", block: "start" });
+    setTimeout(() => $("editName").focus({ preventScroll: window.innerWidth >= 1024 }), 50);
+  }
+
+  function closeEditor() {
+    editingId = null;
+    isNew = false;
+    draft = null;
+    fillEditor(normalizeProperty({ visible: true }));
+    $("editorFields").disabled = true;
+    $("currentEditingId").textContent = "선택 없음";
+    $("editorTitle").textContent = "실시간 빠른 편집기";
+    $("editorHint").textContent = "목록에서 매물을 누르면 세부 정보가 여기에 바로 불러와집니다.";
+  }
+
+  async function persist(next, okTitle, okDesc) {
+    if (busy) return false;
+    busy = true;
+    syncState = "saving";
+    renderAll();
+    try {
+      properties = await saveProperties(next);
+      lastSync = Date.now();
+      syncState = (await loadConfig()).api ? "ok" : "local";
+      showToast(okTitle, okDesc);
+      return true;
+    } catch (e) {
+      syncState = "error";
+      showToast("저장 실패", e.message, true);
+      if (!isAdmin()) setTimeout(() => location.replace("admin.html"), 1500);
+      return false;
+    } finally {
+      busy = false;
+      renderAll();
+    }
+  }
+
+  async function reload(silent) {
+    if (busy) return;
+    try {
+      const cfg = await loadConfig();
+      properties = await getProperties();
+      lastSync = Date.now();
+      syncState = !cfg.api ? "local" : cfg.github_ready ? "ok" : "error";
+      if (cfg.api && !cfg.github_ready) showToast("연동 설정 필요", "Vercel 환경 변수 GITHUB_TOKEN을 설정해야 저장할 수 있습니다.", true);
+      if (editingId && !findProperty(editingId)) closeEditor();
+      if (!silent) showToast("최신 상태 불러옴", "메인 화면과 같은 데이터를 표시하고 있습니다.");
+    } catch (e) {
+      syncState = "error";
+      showToast("불러오기 실패", e.message, true);
+    }
+    renderAll();
+  }
+
+  function withChange(id, change) {
+    return properties.map(p => (p.id === id ? Object.assign({}, p, change, { updated_at: today() }) : p));
+  }
+
+  function moveTo(id, targetId, after) {
+    const active = activeList().slice();
+    const from = active.findIndex(p => p.id === id);
+    if (from < 0) return null;
+    const [item] = active.splice(from, 1);
+    let to = active.findIndex(p => p.id === targetId);
+    if (to < 0) return null;
+    if (after) to++;
+    active.splice(to, 0, item);
+    return active.concat(soldList());
+  }
+
+  $("propertyItemsList").addEventListener("click", async e => {
+    const row = e.target.closest(".property-row");
+    if (!row) return;
+    const id = row.getAttribute("data-id");
+    const p = findProperty(id);
+    if (!p) return;
+
+    if (e.target.closest(".row-checkbox")) {
+      if (e.target.checked) selectedIds.add(id); else selectedIds.delete(id);
+      $("selectedCount").textContent = selectedIds.size;
+      $("selectAllCheckbox").checked = selectedIds.size === filteredList().length;
+      return;
+    }
+    if (e.target.closest(".expose-toggle")) {
+      const on = e.target.checked;
+      await persist(withChange(id, { visible: on }), on ? "노출 상태 전환" : "비노출 전환", "'" + propertyPlainName(p.name) + "'이(가) 메인 추천 영역에서 " + (on ? "공개" : "숨김 처리") + "되었습니다.");
+      if (editingId === id && draft) { draft.visible = on; $("editVisible").checked = on; }
+      return;
+    }
+    if (e.target.closest(".switch")) return;
+    if (e.target.closest(".complete-btn")) {
+      if (!confirm("'" + propertyPlainName(p.name) + "' 매물을 거래완료(보관) 처리할까요?\n메인 웹사이트 추천 매물에서 즉시 제외됩니다.")) return;
+      const next = properties.filter(x => x.id !== id).concat([Object.assign({}, p, { status: "sold", updated_at: today() })]);
+      if (await persist(next, "거래완료 처리", "'" + propertyPlainName(p.name) + "'을(를) 보관함으로 옮겼습니다.") && editingId === id) closeEditor();
+      return;
+    }
+    if (e.target.closest(".restore-btn")) {
+      if (activeList().length >= MAX_PROPERTIES) return showToast("정원 초과", "추천 매물은 최대 " + MAX_PROPERTIES + "건입니다. 다른 매물을 거래완료 처리한 뒤 복원하세요.", true);
+      const next = activeList().concat([Object.assign({}, p, { status: "active", visible: false, updated_at: today() })], soldList().filter(x => x.id !== id));
+      await persist(next, "복원 완료", "'" + propertyPlainName(p.name) + "'을(를) 비노출 상태로 진행 매물에 되돌렸습니다.");
+      return;
+    }
+    if (e.target.closest(".remove-btn")) {
+      if (!confirm("'" + propertyPlainName(p.name) + "' 매물을 보관함에서 영구 삭제할까요? 되돌릴 수 없습니다.")) return;
+      await persist(properties.filter(x => x.id !== id), "영구 삭제", "보관함에서 삭제했습니다.");
+      return;
+    }
+    if (e.target.closest(".move-up") || e.target.closest(".move-down")) {
+      const active = activeList();
+      const i = active.findIndex(x => x.id === id);
+      const up = !!e.target.closest(".move-up");
+      const target = active[up ? i - 1 : i + 1];
+      if (!target) return;
+      const next = moveTo(id, target.id, !up);
+      if (next) await persist(next, "노출 순서 변경", "'" + propertyPlainName(p.name) + "'을(를) TOP " + (up ? i : i + 2) + "(으)로 옮겼습니다.");
+      return;
+    }
+    if (p.status === "sold") return;
+    if (editingId === id) return;
+    if (!confirmDiscard()) return;
+    openEditor(p, false);
+    showToast("데이터 불러옴", "'" + propertyPlainName(p.name) + "' 정보를 편집기에 불러왔습니다.");
+  });
+
+  $("propertyItemsList").addEventListener("dragstart", e => {
+    const row = e.target.closest(".property-row[draggable]");
+    if (!row) return;
+    dragId = row.getAttribute("data-id");
+    row.classList.add("dragging");
+    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setData("text/plain", dragId);
+  });
+  $("propertyItemsList").addEventListener("dragover", e => {
+    const row = e.target.closest(".property-row[draggable]");
+    if (!dragId || !row || row.getAttribute("data-id") === dragId) return;
+    e.preventDefault();
+    const rect = row.getBoundingClientRect();
+    const after = e.clientY > rect.top + rect.height / 2;
+    document.querySelectorAll(".drop-before,.drop-after").forEach(el => el.classList.remove("drop-before", "drop-after"));
+    row.classList.add(after ? "drop-after" : "drop-before");
+  });
+  $("propertyItemsList").addEventListener("drop", async e => {
+    const row = e.target.closest(".property-row[draggable]");
+    if (!dragId || !row) return;
+    e.preventDefault();
+    const after = row.classList.contains("drop-after");
+    const targetId = row.getAttribute("data-id");
+    const movedId = dragId;
+    dragId = null;
+    if (targetId === movedId) return renderList();
+    const next = moveTo(movedId, targetId, after);
+    const p = findProperty(movedId);
+    if (next) {
+      const rank = next.findIndex(x => x.id === movedId) + 1;
+      await persist(next, "노출 순서 변경", "'" + propertyPlainName(p.name) + "'을(를) TOP " + rank + "(으)로 옮겼습니다.");
+    }
+  });
+  $("propertyItemsList").addEventListener("dragend", () => {
+    dragId = null;
+    document.querySelectorAll(".dragging,.drop-before,.drop-after").forEach(el => el.classList.remove("dragging", "drop-before", "drop-after"));
+  });
+
+  $("selectAllCheckbox").addEventListener("change", e => {
+    selectedIds = e.target.checked ? new Set(filteredList().map(p => p.id)) : new Set();
+    renderList();
+  });
+
+  async function batchVisible(on) {
+    if (!selectedIds.size) return showToast("선택된 매물 없음", "일괄 변경할 매물을 먼저 선택해 주세요.", true);
+    const ids = new Set(selectedIds);
+    const next = properties.map(p => (ids.has(p.id) && p.status === "active" ? Object.assign({}, p, { visible: on, updated_at: today() }) : p));
+    if (await persist(next, on ? "일괄 노출 완료" : "일괄 숨김 완료", "선택한 " + ids.size + "개 매물을 " + (on ? "노출" : "비노출") + " 처리했습니다.")) {
+      selectedIds.clear();
+      if (editingId && ids.has(editingId) && draft) { draft.visible = on; $("editVisible").checked = on; }
+      renderList();
+    }
+  }
+  $("batchExposeBtn").addEventListener("click", () => batchVisible(true));
+  $("batchHideBtn").addEventListener("click", () => batchVisible(false));
+
+  $("categoryChips").addEventListener("click", e => {
+    const b = e.target.closest("[data-cat]");
+    if (!b) return;
+    filterCategory = b.getAttribute("data-cat");
+    renderChips();
+    renderList();
+  });
+  $("tradeChips").addEventListener("click", e => {
+    const b = e.target.closest("[data-trade]");
+    if (!b) return;
+    filterTrade = b.getAttribute("data-trade");
+    renderChips();
+    renderList();
+  });
+  $("searchInput").addEventListener("input", renderList);
+
+  document.querySelectorAll(".view-tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      view = tab.getAttribute("data-view");
+      document.querySelectorAll(".view-tab").forEach(t => {
+        const on = t === tab;
+        t.className = "view-tab min-h-[40px] px-4 rounded-full font-label-md text-label-md " + (on ? "font-bold bg-surface-canvas text-foreground-strong shadow-sm" : "text-foreground-secondary");
+      });
+      filterCategory = "all";
+      filterTrade = "all";
+      selectedIds.clear();
+      renderChips();
+      renderList();
+    });
+  });
+
+  document.querySelectorAll("[data-new-property]").forEach(btn => btn.addEventListener("click", () => {
+    if (activeList().length >= MAX_PROPERTIES) return showToast("정원 초과", "추천 매물은 최대 " + MAX_PROPERTIES + "건입니다. 거래완료 처리 후 등록하세요.", true);
+    if (!confirmDiscard()) return;
+    openEditor(normalizeProperty({ visible: true, category: "apt", trade: "trade" }), true);
+  }));
+
+  $("tradePills").innerHTML = Object.entries(PROPERTY_TRADES).map(([k, v]) => '<button data-trade="' + k + '" type="button">' + v + "</button>").join("");
+  $("tradePills").addEventListener("click", e => {
+    const b = e.target.closest("[data-trade]");
+    if (b) setTrade(b.getAttribute("data-trade"));
+  });
+  $("editCategory").innerHTML = Object.entries(PROPERTY_CATEGORIES).map(([k, v]) => '<option value="' + k + '">' + v + "</option>").join("");
+  $("addTagBtn").addEventListener("click", addTag);
+  $("tagInput").addEventListener("keydown", e => {
+    if (e.key === "Enter" && !e.isComposing) { e.preventDefault(); addTag(); }
+  });
+  $("tagsList").addEventListener("click", e => {
+    const b = e.target.closest("[data-tag-index]");
+    if (!b) return;
+    editorTags.splice(Number(b.getAttribute("data-tag-index")), 1);
+    renderTags();
+  });
+
+  $("resetBtn").addEventListener("click", () => {
+    if (!draft) return;
+    if (isNew) {
+      if (!confirmDiscard()) return;
+      closeEditor();
+      renderList();
+      return;
+    }
+    fillEditor(draft);
+    showToast("원래대로 되돌림", "마지막으로 저장된 내용으로 되돌렸습니다.");
+  });
+
+  $("quickEditorForm").addEventListener("submit", async e => {
+    e.preventDefault();
+    if (!draft) return;
+    if ($("tagInput").value.trim()) addTag();
+    const item = readEditor();
+    if (!item.name) return showEditorError("매물명을 입력해 주세요.");
+    if (!item.price) return showEditorError((item.trade === "monthly" ? "보증금" : "가격") + "을 입력해 주세요.");
+    if (item.trade === "monthly" && !item.monthly) return showEditorError("월세 금액을 입력해 주세요.");
+    showEditorError("");
+    let next;
+    if (isNew) {
+      if (activeList().length >= MAX_PROPERTIES) return showEditorError("추천 매물은 최대 " + MAX_PROPERTIES + "건입니다.");
+      item.id = "CHUNG-" + Date.now();
+      next = [item].concat(properties);
+    } else {
+      const old = findProperty(editingId);
+      if (!old) return showEditorError("이 매물은 이미 삭제되었습니다. 최신 상태를 불러와 주세요.");
+      next = properties.map(p => (p.id === editingId ? Object.assign({}, item, { status: old.status }) : p));
+    }
+    const ok = await persist(next, isNew ? "신규 매물 게시 완료" : "메인 실시간 반영 완료", "'" + propertyPlainName(item.name) + "' (" + propertyPriceLabel(item) + ") 정보가 웹사이트에 반영되었습니다.");
+    if (ok) {
+      const saved = findProperty(item.id) || properties[0];
+      openEditor(saved, false);
+    }
+  });
+
+  $("refreshBtn").addEventListener("click", () => {
+    if (!confirmDiscard()) return;
+    reload(false);
+  });
+  $("logoutBtn").addEventListener("click", () => {
+    if (!confirmDiscard()) return;
+    logout();
+    location.replace("admin.html");
+  });
+  window.addEventListener("beforeunload", e => {
+    if (isDirty()) { e.preventDefault(); e.returnValue = ""; }
+  });
+
+  setInterval(renderSync, 30000);
+  setInterval(() => {
+    if (!busy && !isDirty() && !dragId && document.visibilityState === "visible") reload(true);
+  }, 60000);
+
+  closeEditor();
+  reload(true);
+})();
+</script>
+</body></html>

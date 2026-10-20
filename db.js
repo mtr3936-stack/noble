@@ -199,6 +199,99 @@ async function deletePost(id) {
   return true;
 }
 
+const LOCAL_PROPERTIES_KEY = "board_properties";
+const PROPERTIES_FILE_PATH = "data/properties.json";
+const MAX_PROPERTIES = 12;
+const PROPERTY_CATEGORIES = { apt: "아파트", commercial: "상가·오피스", presale: "분양권", land: "토지·주택" };
+const PROPERTY_TRADES = { trade: "매매", jeonse: "전세", monthly: "월세" };
+
+function normalizeProperty(p) {
+  const src = p && typeof p === "object" ? p : {};
+  const str = v => String(v == null ? "" : v).trim();
+  const tags = Array.isArray(src.tags) ? src.tags : str(src.tags).split(",");
+  return {
+    id: str(src.id),
+    name: str(src.name),
+    category: PROPERTY_CATEGORIES[src.category] ? src.category : "apt",
+    trade: PROPERTY_TRADES[src.trade] ? src.trade : "trade",
+    price: str(src.price),
+    monthly: str(src.monthly),
+    area: str(src.area),
+    floor: str(src.floor),
+    tags: tags.map(str).filter(Boolean).slice(0, 8),
+    description: str(src.description),
+    visible: src.visible !== false,
+    status: src.status === "sold" ? "sold" : "active",
+    updated_at: str(src.updated_at)
+  };
+}
+
+function propertyPriceLabel(p) {
+  if (p.trade === "monthly") return "보 " + p.price + (p.monthly ? " / 월 " + p.monthly : "");
+  if (p.trade === "jeonse") return "전세 " + p.price;
+  return (p.category === "presale" ? "매매(분양) " : "매매 ") + p.price;
+}
+
+function renderPropertyName(name) {
+  return escapeHtml(name).replace(/\[([^\]]+)\]/g, '<span class="text-primary font-bold">$1</span>');
+}
+
+function propertyPlainName(name) {
+  return String(name || "").replace(/[\[\]]/g, "");
+}
+
+function readLocalJson(key) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+async function fetchJsonFile(path) {
+  try {
+    const r = await fetch(path + "?t=" + Date.now(), { cache: "no-store" });
+    if (r.ok) return await r.json();
+  } catch (e) {}
+  return [];
+}
+
+async function getProperties() {
+  const cfg = await loadConfig();
+  let list = null;
+  if (cfg.api) {
+    if (cfg.github_ready) {
+      try {
+        const r = await fetch("/api/properties", { cache: "no-store" });
+        if (r.ok) list = (await r.json()).properties;
+      } catch (e) {}
+    }
+  } else {
+    list = readLocalJson(LOCAL_PROPERTIES_KEY);
+  }
+  if (!Array.isArray(list)) list = await fetchJsonFile(PROPERTIES_FILE_PATH);
+  return (Array.isArray(list) ? list : []).map(normalizeProperty);
+}
+
+async function saveProperties(list) {
+  const cfg = await loadConfig();
+  const data = (Array.isArray(list) ? list : []).map(normalizeProperty);
+  if (data.some(p => !p.name)) throw new Error("매물명을 입력해 주세요.");
+  if (data.filter(p => p.status === "active").length > MAX_PROPERTIES) {
+    throw new Error("추천 매물은 최대 " + MAX_PROPERTIES + "건까지 등록할 수 있습니다. 거래완료 처리하거나 삭제한 뒤 등록해 주세요.");
+  }
+  data.forEach((p, i) => { if (!p.id) p.id = "P" + Date.now() + "-" + i; });
+
+  if (cfg.api) {
+    if (!cfg.github_ready) throw new Error("GitHub 토큰이 설정되지 않았습니다. Vercel 환경 변수 GITHUB_TOKEN을 확인해 주세요.");
+    const j = await apiRequest("PUT", "/api/properties", { properties: data });
+    return (j.properties || []).map(normalizeProperty);
+  }
+  try { localStorage.setItem(LOCAL_PROPERTIES_KEY, JSON.stringify(data)); } catch (e) {}
+  return data;
+}
+
 async function login(password) {
   const cfg = await loadConfig();
   const input = String(password || "");
@@ -393,3 +486,12 @@ window.categoryClass = categoryClass;
 window.safeImageUrl = safeImageUrl;
 window.readingMinutes = readingMinutes;
 window.BOARD_CATEGORIES = BOARD_CATEGORIES;
+window.getProperties = getProperties;
+window.saveProperties = saveProperties;
+window.normalizeProperty = normalizeProperty;
+window.propertyPriceLabel = propertyPriceLabel;
+window.renderPropertyName = renderPropertyName;
+window.propertyPlainName = propertyPlainName;
+window.PROPERTY_CATEGORIES = PROPERTY_CATEGORIES;
+window.PROPERTY_TRADES = PROPERTY_TRADES;
+window.MAX_PROPERTIES = MAX_PROPERTIES;
