@@ -103,6 +103,81 @@ async function writeList(info, list, sha) {
   if (!r.ok) throw await githubError(r);
 }
 
+// ---- Google 시트 연동 (SHEET_FEED_URL 이 설정되면 시트가 추천매물의 원본이 됩니다) ----
+
+const SHEET_CACHE_SECONDS = 60;
+
+function sheetCategory(kind) {
+  const k = String(kind || "");
+  if (/분양권|입주권/.test(k)) return "presale";
+  if (/아파트/.test(k)) return "apt";
+  if (/토지|주택|단독|다가구|다세대|빌라|전원/.test(k)) return "land";
+  return "commercial";
+}
+
+function sheetTrade(trade) {
+  const t = String(trade || "");
+  if (/월세|임대/.test(t)) return "monthly";
+  if (/전세/.test(t)) return "jeonse";
+  return "trade";
+}
+
+function toManwon(value) {
+  const digits = String(value || "").replace(/[^\d.]/g, "");
+  return digits ? Math.round(Number(digits)) : NaN;
+}
+
+function formatManwon(n, withUnit) {
+  if (!isFinite(n) || n <= 0) return "";
+  const unit = withUnit ? "만" : "";
+  if (n < 10000) return n.toLocaleString("ko-KR") + unit;
+  const eok = Math.floor(n / 10000);
+  const rest = n % 10000;
+  return eok + "억" + (rest ? " " + rest.toLocaleString("ko-KR") + "만" : "");
+}
+
+function sheetPrice(raw, trade) {
+  const s = String(raw || "").trim();
+  if (trade === "monthly") {
+    const [dep, mon] = s.split("/").map(x => x.trim());
+    const d = formatManwon(toManwon(dep), false) || dep || "";
+    const m = formatManwon(toManwon(mon), true) || mon || "";
+    return { price: d, monthly: m };
+  }
+  return { price: formatManwon(toManwon(s), true) || s, monthly: "" };
+}
+
+function fromSheetItem(item, today) {
+  const trade = sheetTrade(item.trade);
+  const { price, monthly } = sheetPrice(item.price, trade);
+  const address = String(item.address || "").trim();
+  const dong = String(item.dong || "").trim();
+  return sanitize({
+    id: item.id,
+    name: dong ? address + " [" + dong + "]" : address,
+    category: sheetCategory(item.kind),
+    trade: trade,
+    price: price,
+    monthly: monthly,
+    area: item.area,
+    floor: item.floor,
+    tags: item.moveIn ? [item.moveIn] : [],
+    description: item.feature,
+    visible: true,
+    status: "active",
+    updated_at: today
+  });
+}
+
+async function readSheet(url) {
+  const r = await fetch(url, { redirect: "follow", cache: "no-store" });
+  if (!r.ok) throw new Error("시트 피드 응답 오류(" + r.status + ")");
+  const j = await r.json();
+  if (!j || !Array.isArray(j.items)) throw new Error("시트 피드 형식 오류");
+  const today = String(j.updated || new Date().toISOString()).slice(0, 10);
+  return j.items.slice(0, MAX_TOTAL).map(item => fromSheetItem(item, today)).filter(p => p.name);
+}
+
 function readBody(req) {
   if (req.body && typeof req.body === "object") return req.body;
   try { return JSON.parse(req.body || "{}"); } catch (e) { return {}; }
@@ -111,6 +186,18 @@ function readBody(req) {
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
   const info = repoInfo();
+  const sheetUrl = String(process.env.SHEET_FEED_URL || "").trim();
+
+  if (req.method === "GET" && sheetUrl) {
+    try {
+      const list = await readSheet(sheetUrl);
+      res.setHeader("Cache-Control", "public, s-maxage=" + SHEET_CACHE_SECONDS + ", stale-while-revalidate=600");
+      return res.status(200).json({ properties: list, source: "sheet" });
+    } catch (e) {
+      console.error("sheet feed failed, falling back to repo file:", e);
+    }
+  }
+
   if (!info.token) {
     return res.status(503).json({ error: "GITHUB_TOKEN 환경변수가 설정되지 않았습니다." });
   }
