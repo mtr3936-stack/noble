@@ -534,8 +534,9 @@ textarea.field { height: auto; padding: 0.7rem 0.85rem; line-height: 1.6; resize
       lastSync = Date.now();
       syncState = !cfg.api ? "local" : cfg.github_ready ? "ok" : "error";
       if (cfg.api && !cfg.github_ready) showToast("연동 설정 필요", "Vercel 환경 변수 GITHUB_TOKEN을 설정해야 저장할 수 있습니다.", true);
+      if (window.propertiesSource === "sheet") showToast("구글 시트 자동 연동 중", "추천매물은 매물관리 시트에서 자동으로 불러옵니다. 매물 추가·수정·삭제는 시트에서 해주세요. 이 화면에서 바꾼 내용은 홈페이지에 반영되지 않습니다.", true);
       if (editingId && !findProperty(editingId)) closeEditor();
-      if (!silent) showToast("최신 상태 불러옴", "메인 화면과 같은 데이터를 표시하고 있습니다.");
+      if (!silent && window.propertiesSource !== "sheet") showToast("최신 상태 불러옴", "메인 화면과 같은 데이터를 표시하고 있습니다.");
     } catch (e) {
       syncState = "error";
       showToast("불러오기 실패", e.message, true);

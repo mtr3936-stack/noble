@@ -264,7 +264,11 @@ async function getProperties() {
     if (cfg.github_ready) {
       try {
         const r = await fetch("/api/properties", { cache: "no-store" });
-        if (r.ok) list = (await r.json()).properties;
+        if (r.ok) {
+          const j = await r.json();
+          list = j.properties;
+          window.propertiesSource = j.source || "repo";
+        }
       } catch (e) {}
     }
   } else {

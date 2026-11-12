@@ -213,18 +213,31 @@
     "</article>";
   }
 
+  const PAGE_SIZE = 12;
+  let shownLimit = PAGE_SIZE;
+  const moreBtn = document.createElement("button");
+  moreBtn.type = "button";
+  moreBtn.className = "hidden md:col-span-2 lg:col-span-3 w-full min-h-[48px] rounded-full bg-surface-canvas text-foreground-strong font-label-md text-label-md shadow-sm hover:bg-surface-container-low items-center justify-center gap-1 transition-all";
+  moreBtn.addEventListener("click", () => { shownLimit += PAGE_SIZE; applyFilter(); });
+  bannerEl.insertAdjacentElement("beforebegin", moreBtn);
+
   function applyFilter() {
-    let visibleCount = 0;
+    let matchCount = 0;
     listEl.querySelectorAll(".property-item").forEach(card => {
       const catMatches = currentCategory === "all" || card.getAttribute("data-category") === currentCategory;
       const trdMatches = currentTrade === "all" || card.getAttribute("data-trade") === currentTrade;
-      const show = catMatches && trdMatches;
+      const matches = catMatches && trdMatches;
+      if (matches) matchCount++;
+      const show = matches && matchCount <= shownLimit;
       card.classList.toggle("hidden", !show);
       card.classList.toggle("flex", show);
-      if (show) visibleCount++;
     });
-    noResultsEl.classList.toggle("hidden", visibleCount !== 0);
-    noResultsEl.classList.toggle("flex", visibleCount === 0);
+    const remaining = matchCount - shownLimit;
+    moreBtn.innerHTML = '<span>매물 더보기 (' + Math.max(0, remaining) + '건 더)</span><span class="material-symbols-outlined text-[20px]">expand_more</span>';
+    moreBtn.classList.toggle("hidden", remaining <= 0);
+    moreBtn.classList.toggle("flex", remaining > 0);
+    noResultsEl.classList.toggle("hidden", matchCount !== 0);
+    noResultsEl.classList.toggle("flex", matchCount === 0);
   }
 
   async function renderProperties() {
@@ -232,7 +245,7 @@
     try { list = await getProperties(); } catch (e) { list = []; }
     const shown = list.filter(p => p.status === "active" && p.visible);
     listEl.querySelectorAll(".property-item").forEach(el => el.remove());
-    bannerEl.insertAdjacentHTML("beforebegin", shown.map(propertyCardHtml).join(""));
+    moreBtn.insertAdjacentHTML("beforebegin", shown.map(propertyCardHtml).join(""));
     applyFilter();
   }
 
@@ -245,6 +258,7 @@
       this.classList.remove("bg-surface-canvas", "text-foreground-secondary");
       this.classList.add("bg-primary-container", "text-on-primary", "shadow-sm");
       currentCategory = this.getAttribute("data-filter");
+      shownLimit = PAGE_SIZE;
       applyFilter();
     });
   });
@@ -258,6 +272,7 @@
       this.classList.remove("bg-surface-canvas", "text-muted");
       this.classList.add("bg-surface-container-highest", "text-foreground-strong");
       currentTrade = this.getAttribute("data-trade");
+      shownLimit = PAGE_SIZE;
       applyFilter();
     });
   });
